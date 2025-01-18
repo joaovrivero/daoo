@@ -3,21 +3,31 @@
 @section('title', 'Criar Nova Mensagem')
 
 @section('content')
-<h1>Criar Nova Mensagem</h1>
-<form action="{{ route('messages.store') }}" method="POST">
-    @csrf
-    <div class="mb-3">
-        <label for="sender_id" class="form-label">Remetente</label>
-        <input type="number" class="form-control" id="sender_id" name="sender_id" required>
-    </div>
-    <div class="mb-3">
-        <label for="recipient_id" class="form-label">Destinatário</label>
-        <input type="number" class="form-control" id="recipient_id" name="recipient_id" required>
-    </div>
-    <div class="mb-3">
-        <label for="content" class="form-label">Conteúdo</label>
-        <textarea class="form-control" id="content" name="content" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Salvar</button>
-</form>
+<div class="container">
+    <h1>Create Message</h1>
+    <form action="{{ route('messages.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="sender_id">Sender</label>
+            <select name="sender_id" id="sender_id" class="form-control">
+                @foreach($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="receiver_id">Receiver</label>
+            <select name="receiver_id" id="receiver_id" class="form-control">
+                @foreach($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea name="message" id="message" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+</div>
 @endsection

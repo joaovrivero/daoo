@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class MessageController extends Controller
 {
@@ -35,7 +36,9 @@ class MessageController extends Controller
 
     public function show(Message $message)
     {
-        return view('messages.show', compact('message'));
+        $sender = User::find($message->sender_id);
+        $recipient = User::find($message->receiver_id);
+        return view('messages.show', compact('message', 'sender', 'recipient'));
     }
 
     public function edit(Message $message)

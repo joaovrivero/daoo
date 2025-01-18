@@ -4,8 +4,8 @@
 
 @section('content')
 <h1>Detalhes da Mensagem</h1>
-<p><strong>Remetente:</strong> {{ $message->sender_id }}</p>
-<p><strong>Destinatário:</strong> {{ $message->recipient_id }}</p>
+<p><strong>Remetente:</strong> {{ $sender->name }}</p>
+<p><strong>Destinatário:</strong> {{ $recipient->name }}</p>
 <p><strong>Conteúdo:</strong> {{ $message->content }}</p>
 <a href="{{ route('messages.edit', $message) }}" class="btn btn-warning">Editar</a>
 <form action="{{ route('messages.destroy', $message) }}" method="POST" style="display:inline;">

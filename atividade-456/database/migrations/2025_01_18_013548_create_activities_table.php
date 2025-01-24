@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description')->nullable();
-            $table->integer('max_participants');
+            $table->text('description');
+            $table->dateTime('start_time');
+            $table->dateTime('end_time');
+            $table->unsignedInteger('max_participants');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relacionamento com `users`
             $table->timestamps();
         });
     }

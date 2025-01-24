@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Sanctum\HasApiTokens;
 
 class Activity extends Model
 {
@@ -13,4 +15,11 @@ class Activity extends Model
         'description',
         'max_participants',
     ];
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
+
 }

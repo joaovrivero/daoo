@@ -10,16 +10,44 @@ use App\Models\Activity;
 
 class ActivityController extends Controller
 {
-    public function store(StoreActivityRequest $request)
+    public function index()
     {
-        $activity = Activity::create($request->validated());
-        return new ActivityResource($activity);
+        return response()->json(Activity::all(), 200); // Retorna todas as atividades em JSON
     }
 
-    public function update(UpdateActivityRequest $request, Activity $activity)
+    public function store(Request $request)
     {
-        $activity->update($request->validated());
-        return new ActivityResource($activity);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'start_time' => 'required|date',
+            'end_time' => 'required|date|after:start_time',
+            'max_participants' => 'required|integer|min:1',
+        ]);
+
+        $activity = Activity::create($validated);
+
+        return response()->json($activity, 201); // Retorna a atividade criada com código 201
+    }
+
+    public function show(Activity $activity)
+    {
+        return response()->json($activity, 200); // Retorna a atividade específica
+    }
+
+    public function update(Request $request, Activity $activity)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'start_time' => 'required|date',
+            'end_time' => 'required|date|after:start_time',
+            'max_participants' => 'required|integer|min:1',
+        ]);
+
+        $activity->update($validated);
+
+        return response()->json($activity, 200); // Retorna a atividade atualizada
     }
 
     public function destroy(Activity $activity)

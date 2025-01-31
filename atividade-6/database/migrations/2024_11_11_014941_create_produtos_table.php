@@ -16,6 +16,9 @@ return new class extends Migration
         $table->string('nome');
         $table->text('descricao');
         $table->decimal('preco', 8, 2);
+        $table->foreignId('fornecedor_id')
+        ->references('id')->on('fornecedores')
+        ->cascadeOnDelete();
         $table->timestamps();
 
     });

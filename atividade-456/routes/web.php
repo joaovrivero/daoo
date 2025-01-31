@@ -1,9 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MessageController;
 
 Route::get('/', function () {
-    return ['Laravel' => app()->version()];
+    return view('welcome');
 });
 
-require __DIR__.'/auth.php';
+Route::resource('activities', ActivityController::class);
+Route::resource('users', UserController::class);
+Route::resource('messages', MessageController::class);
